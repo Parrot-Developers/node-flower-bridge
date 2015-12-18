@@ -1,8 +1,8 @@
 {
   "name": "node-flower-bridge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "<h1>Flower Bridge</h1>",
-  "main": "index.js",
+  "main": "lib/FlowerPower.js",
   "scripts": {
     "test": "echo 'test' && exit 0",
     "start": "sudo ./run display"
