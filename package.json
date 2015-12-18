@@ -1,0 +1,28 @@
+{
+  "name": "flower-bridge",
+  "version": "1.0.0",
+  "description": "<h1>Flower Bridge</h1>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'test' && exit 0",
+    "start": "sudo ./run display"
+  },
+  "author": "Bruno Sautron",
+  "license": "ISC",
+  "dependencies": {
+    "async": "*",
+    "chance": "*",
+    "cli-color": "*",
+    "flower-power-api": "^1.1.0",
+    "flower-power-ble": "^0.3.1",
+    "nedb": "^1.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Parrot-Developers/flower-bridge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Parrot-Developers/flower-bridge/issues"
+  },
+  "homepage": "https://github.com/Parrot-Developers/flower-bridge#readme"
+}

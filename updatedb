@@ -1,0 +1,102 @@
+#!/usr/bin/node
+var Datastore = require('nedb');
+var clc = require('cli-color');
+var db = new Datastore({filename: './database/process.db', autoload: true});
+
+var messColor = {
+	'No update required': clc.yellow('No update required'),
+	'Updated': clc.green.bold('Updated'),
+	'Not found': clc.red.bold('Not found'),
+	'Disconnected': clc.yellow.bold('Disconnected')
+}
+
+function usage() {
+	console.log();
+	console.log("-- Warning: Make sure you have a sudo permission --");
+	console.log();
+	console.log("All states of your Flower Powers are push in a local Database");
+	console.log("You can request this Database to know the last process/update/errors ...");
+	console.log("Each requests are sorted by date");
+	console.log();
+	console.log("USAGE:");
+	console.log("\t./updatedb all [limit]");
+	console.log("\t./updatedb key=value [...] [limit]");
+	console.log();
+	console.log("ARGUMENTS:");
+	console.log("\tall: Show last process");
+	console.log();
+	console.log("\tkey:");
+	console.log("\t\tuuid: For the uuid of device");
+	console.log("\t\tproc: For the proc message");
+	console.log("\t\tdate: For the date of process");
+	console.log();
+	console.log("\tvalue:");
+	for (var mess in messColor) {
+		console.log("\t\t" + mess);
+	}
+	console.log();
+	console.log("\tlimit (optional): Show N last process. By default, limit=10");
+	console.log();
+	console.log('EXAMPLES:');
+	console.log("\tsudo ./updatedb all\t\t\t: 10 last process");
+	console.log("\tsudo ./updatedb uuid=\"9003b7e7aa64\"\t: last process of this Flower power");
+	console.log("\tsudo ./updatedb uuid=\"9003b7e7aa64\" proc=\"Updated\" 5\t: Show 5 last update for this Flower Power");
+	console.log();
+	console.log("AUTHOR:");
+	console.log("\tWritten by Bruno Sautron.");
+	process.exit(0);
+}
+
+function printReq(find, limit) {
+	console.log( ' - REQUEST for (limit: ' + limit + '):' );
+
+	if (find instanceof Array) {
+		for (var i in find) {
+			var key = Object.keys(find[i])[0];
+			console.log("\t" + key + ": " + find[i][key]);
+		}
+	}
+	else {
+		console.log("\t" + limit + ' last process');
+	}
+	console.log();
+}
+
+function findDb(find, max) {
+	printReq(find, max);
+	var toFind = (find) ? {$and: find} : {};
+
+	db.find(toFind).sort({date: -1}).limit(max).exec(function(err, docs) {
+			for (var i in docs) {
+			console.log("[" + docs[i].date + "]:", clc.xterm(docs[i].color)(docs[i].name + ":"), (messColor[docs[i].proc]) ? messColor[docs[i].proc] : docs[i].proc);
+			}
+			});
+}
+
+
+/* main */
+var argv = process.argv;
+var max = 10;
+
+if (!isNaN(argv[argv.length - 1])) {
+	max = argv[argv.length - 1];
+	argv.pop();
+}
+
+if (argv.length == 2) usage();
+argv.shift();
+argv.shift();
+
+if (argv[0].toLowerCase() == 'all') findDb(null, max);
+else {
+	var toFind = [];
+
+	for (var i in argv) {
+		var key = argv[i].split("=")[0];
+		var json = {};
+
+		json[key] = argv[i].split("=")[1];
+		toFind.push(json);
+	}
+	findDb(toFind, max);
+}
