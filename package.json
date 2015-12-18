@@ -1,5 +1,5 @@
 {
-  "name": "flower-bridge",
+  "name": "node-flower-bridge",
   "version": "1.0.0",
   "description": "<h1>Flower Bridge</h1>",
   "main": "index.js",
