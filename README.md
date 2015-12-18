@@ -39,9 +39,9 @@ $ sudo hciconfig hci0 up
 To check if it worked, just do a `sudo hcitool lescan`, if it shows you a list of surrounding BLE devices – or at least your Flower Power -- it worked. If not, do a `sudo apt-get install bluez` and try again.
 
 <h3>Step 3: Build the brigde</h3>
-Now, if Nodejs and BLE libraries are installed, clone this repository and do:
+Now, if Nodejs and BLE libraries are installed, then:
 ```bash
-$ ./configure
+$ npm install
 ```
 
 <h2>How to use it</h2>
@@ -58,13 +58,13 @@ To communicate with your Flower Powers, edit `credentials.json`:
 And finaly, you can walk on the brigde.
 :
 ```bash
-$ sudo ./run background 	: To run the program in background
-$ sudo ./run display		: To have a output:
-$ sudo ./run stop			: To stop this program
+$ ./run background 	: To run the program in background
+$ ./run display		: To have a output:
+$ ./run stop			: To stop this program
 ```
 More details:
 ```bash
-$ sudo ./run
+$ ./run
 $ sudo ./updatedb
 ```
 
