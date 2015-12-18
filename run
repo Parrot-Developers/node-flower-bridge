@@ -56,11 +56,11 @@ displayit () {
 	isrunning
 	if [ "$?" == 1 ]
 	then
-		sudo node ./index.js $1
+		sudo node ./test.js $1
 	else
 		echo "[$pid]: A program was already running"
 		stopit
-		sudo node ./index.js $1
+		sudo node ./test.js $1
 	fi
 }
 
@@ -69,7 +69,7 @@ backgroundit () {
 	isrunning
 	if [ "$?" == 1 ]
 	then
-		sudo node ./index.js $1 2> trace.log 1>/dev/null &
+		sudo node ./test.js $1 2> trace.log 1>/dev/null &
 		sudo echo $! > ".flowerIsRunning"
 		echo "To see your log:"
 		echo "$> sudo ./updatedb"
