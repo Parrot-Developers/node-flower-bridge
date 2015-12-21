@@ -17,9 +17,8 @@ Then you need to install some required tools on your raspberry.
 
 First, nodejs needs to be installed, proceed as following:
 ```bash
-$ sudo apt-get update && sudo apt-get upgrade
-$ curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
-$ sudo apt-get install nodejs
+$ wget http://node-arm.herokuapp.com/node_latest_armhf.deb 
+$ sudo dpkg -i node_latest_armhf.deb
 ```
 	
 Then do a `node --version` to check if it worked.
@@ -27,7 +26,7 @@ Then do a `node --version` to check if it worked.
 <h3>Step 2: BLE libraries</h3>
 Then we need to install the BLE libraries:
 ```bash
-$ sudo apt-get install libdbus-1-dev libdbus-glib-1-dev libglib2.0-dev libical-dev libreadline-dev libudev-dev libusb-dev glib2.0 bluetooth bluez libbluetooth-dev make
+$ sudo apt-get install libdbus-1-dev libdbus-glib-1-dev libglib2.0-dev libical-dev libreadline-dev libudev-dev libusb-dev glib2.0 bluetooth bluez libbluetooth-dev
 ```
 
 Okay now you should be able to discover peripheral around you.
