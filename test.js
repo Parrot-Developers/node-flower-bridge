@@ -1,8 +1,7 @@
-var Bridge = require('./lib/FlowerBridge');
+var brooklyn = require('./index');
 var credentials = require('./credentials');
 var clc = require('cli-color')
 
-var brooklyn = new Bridge();
 var valid = clc.green.bold('✔');
 var bad = clc.red.bold('✘');
 
