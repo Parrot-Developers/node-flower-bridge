@@ -14,22 +14,19 @@ brooklyn.loginToApi(credentials);
 
 brooklyn.on('login', function() {
 	console.log(valid, clc.green('Login!'));
-	brooklyn.automatic(options);
+	brooklyn.getUser(function(err, res) {
+		for (var i in res.sensors) {
+			console.log(i);
+		}
+		brooklyn.live('A0143D0000090CB8', 10);
+
+	});
 });
 
 brooklyn.on('newProcess', function(flowerPower) {
-	if (flowerPower.lastProcess == 'Searching') {
-		process.stdout.write(flowerPower.uuid + " ");
-	}
-	else if (flowerPower.lastProcess == 'Disconnected') {
-		if (flowerPower.process[1] == 'Updated') console.log(valid);
-		else if (flowerPower.process[1] == 'No update required') console.log(valid + ' -> ' + flowerPower.process[1]);
-		else console.log(bad + ' -> ' + flowerPower.process[1]);
-	}
-	else if (flowerPower.lastProcess == 'Not found') {
-		console.log(bad + ' -> Not found');
-	}
+	console.log(flowerPower.uuid + ": " + flowerPower.lastProcess);
 });
+
 
 brooklyn.on('info', function(info) {
 	console.log(info.message);
