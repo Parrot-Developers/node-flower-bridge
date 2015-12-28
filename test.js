@@ -14,13 +14,10 @@ brooklyn.loginToApi(credentials);
 
 brooklyn.on('login', function() {
 	console.log(valid, clc.green('Login!'));
-	brooklyn.getUser(function(err, res) {
-		for (var i in res.sensors) {
-			console.log(i);
-		}
-		brooklyn.live('A0143D0000090CB8', 10);
-
-	});
+	// brooklyn.synchronize('A0143D0000090CB8');
+	// brooklyn.syncAll();
+	// brooklyn.synchronize('A0143D000008B456');
+	brooklyn.live('A0143D0000090CB8', 5);
 });
 
 brooklyn.on('newProcess', function(flowerPower) {
@@ -35,4 +32,3 @@ brooklyn.on('info', function(info) {
 brooklyn.on('error', function(error) {
 	console.log(error.message);
 });
-

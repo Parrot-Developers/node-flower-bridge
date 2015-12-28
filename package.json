@@ -13,6 +13,7 @@
     "async": "*",
     "chance": "*",
     "cli-color": "*",
+    "deasync": "^0.1.4",
     "flower-power-api": "^1.1.0",
     "flower-power-ble": "^0.3.1",
     "nedb": "^1.2.1"
