@@ -1,10 +1,16 @@
-# Flower Bridge
+# node-flower-bridge
 
 [Tower Bridge - London](https://en.wikipedia.org/wiki/Tower_Bridge)
 
-## How to install
 `Node` >= 4.x
 
+## Get your access API
+* `username` `password`
+	* Make sure you have an account created by your smartphone. You should be see your garden: [myflowerpower.parrot.com](https://myflowerpower.parrot.com).
+* `client_id` `client_secret`
+	* [Sign up to API here](https://apiflowerpower.parrot.com/api_access/signup), and got by **email** your *Access ID* (`client_id`) and your *Access secret* (`client_secret`).
+
+## How to install
 This program works with any *BLE-equipped/BLE-dongle-equipped* computers as well.
 To install it on your raspberry is really easy. You require Node (with npm) and BLE libraries.
 
@@ -12,13 +18,12 @@ First, you need a raspberry with a *USB BLE dongle*. This raspberry must be up a
 Then you need to install some required tools on your raspberry.
 
 ### Step 1: NodeJs
-
 First, nodejs needs to be installed, proceed as following:
 ```bash
-$ wget http://node-arm.herokuapp.com/node_latest_armhf.deb 
+$ wget http://node-arm.herokuapp.com/node_latest_armhf.deb
 $ sudo dpkg -i node_latest_armhf.deb
 ```
-	
+
 Then do a `node --version` to check if it worked.
 
 ### Step 2: BLE libraries
@@ -34,6 +39,7 @@ You should be able to discover peripheral around you. To check it, do `sudo hcit
 
 ### Step 3: Build the brigde
 Now Nodejs and BLE libraries are installed.
+
 #### Ready to use it
 If you have cloned this project, install:
 ```bash
@@ -42,20 +48,34 @@ $ npm install
 Edit `credentials.json`:
 ```javascript
 {
-	"client_id": "...",
-	"client_secret": "...",
-	"username": "...",
-	"password": "..."
+	"client_id":		"...",
+	"client_secret":	"...",
+	"username":		 "...",
+	"password":		 "..."
 }
 ```
-And walk on the brigde.
-:
+And walk on the brigde:
 ```bash
-$ ./run display		    : To have a output:
-$ ./run background 	    : To run the program in background
-$ ./run stop		    : To stop this program
-$ ./run                 : To have help
+$ ./bridge display			: To have a output:
+$ ./bridge background		 : To run the program in background
+$ ./bridge restart			: To restart the program
+$ ./bridge stop			   : To stop the program
+$ ./bridge					: To have help
 ```
+
+##### How it works
+* Login Cloud
+* Loop (every 15 minutes by default)
+  * Get Inforamtions from Cloud
+    * Your garden
+    * Your user-config
+  * For each of your FlowerPowers (1 by 1)
+    * Scan to discover the Flower Power
+    * Retrieve his history samples
+    * Send his history samples to the Cloud
+* End Loop
+
+The program relive a new `Loop` only if all Flower Powers have been checked.
 
 #### Quick started for developers
 If you have this module in dependencies:
@@ -72,12 +92,14 @@ var credentials = {
 };
 
 bridge.loginToApi(credentials, function(err, res) {
-    if (err) return console.error(err);
-    bridge.automatic();
+	if (err) return console.error(err);
+	bridge.syncAll();
+	bridge.live('...', 5);
+	bridge.synchronize('...');
 });
 
 bridge.on('newProcess', function(flowerPower) {
-    console.log(flowerPower.uuid, flowerPower.lastProcess);
+	console.log(flowerPower.uuid, flowerPower.lastProcess);
 });
 bridge.on('info', function(info) {
 	console.log(info.message);
@@ -86,6 +108,8 @@ bridge.on('error', function(error) {
 	console.log(error.message);
 });
 ```
+
+The bridge is a continual queud. Method like `syncAll` `synchronize` or `live` push back to this queud.
 
 ##### Events
 ```js
@@ -108,22 +132,9 @@ var options = {
 	delay: 15,      // loop delay
 	priority: [],   // add a 'uuid'
 };
-bridge.automatic([options]);
 
-// Live for a Flower Power
-bridge.live(uuid); // Comming soon !
+brigde.automatic([options]); // Synchronize all flower power in your garden every 15 minutes by default
+bridge.syncAll([options]); // Synchronize all flower power in your garden
+bridge.synchronize(uuid); // Synchronize a flower power
+bridge.live(uuid [, delay]); // Live for a flower power every 10 seconds by default
 ```
-
-## How it works
-* Login Cloud
-* Loop (every 15 minutes by default)
-  * Get Inforamtions from Cloud
-    * Your garden
-    * Your user-config
-  * For each of your FlowerPowers (1 by 1)
-    * Scan to discover the Flower Power
-    * Retrieve his history samples
-    * Send his history samples to the Cloud
-* End Loop
-
-The program relive a new `Loop` only if all Flower Powers have been checked.
