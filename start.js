@@ -10,17 +10,21 @@ var options = {
 	priority: [],
 };
 
-brooklyn.loginToApi(credentials);
+brooklyn.loginToApi(credentials, function(err) {
+	if (err) {
+		console.error(err);
+		process.exit(1);
+	}
+});
 
 brooklyn.on('login', function() {
 	console.log(valid, clc.green('Login!'));
-	brooklyn.automatic()
+	brooklyn.automatic(options);
 });
 
 brooklyn.on('newProcess', function(flowerPower) {
 	console.log(flowerPower.uuid + ": " + flowerPower.lastProcess);
 });
-
 
 brooklyn.on('info', function(info) {
 	console.log(info.message);
