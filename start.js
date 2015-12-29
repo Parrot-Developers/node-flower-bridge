@@ -14,10 +14,7 @@ brooklyn.loginToApi(credentials);
 
 brooklyn.on('login', function() {
 	console.log(valid, clc.green('Login!'));
-	// brooklyn.synchronize('A0143D0000090CB8');
-	// brooklyn.syncAll();
-	// brooklyn.synchronize('A0143D000008B456');
-	brooklyn.live('A0143D0000090CB8', 5);
+	brooklyn.automatic()
 });
 
 brooklyn.on('newProcess', function(flowerPower) {

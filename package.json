@@ -1,11 +1,11 @@
 {
   "name": "node-flower-bridge",
   "version": "1.2.2",
-  "description": "<h1>Flower Bridge</h1>",
+  "description": "Flower Bridge",
   "main": "lib/FlowerPower.js",
   "scripts": {
     "test": "echo 'test' && exit 0",
-    "start": "sudo ./run display"
+    "start": "./bridge display"
   },
   "author": "Bruno Sautron",
   "license": "ISC",

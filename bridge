@@ -5,8 +5,8 @@ pid=0
 usage () {
 	echo "Flower Bridge: See Flowers fall on the bridge"
 	echo "Every 15 minutes (default), all of your Flower Power will be update"
-	echo 
-	echo "USAGE: ./run cmd [delay]"
+	echo
+	echo "USAGE: ./bridge cmd [delay]"
 	echo
 	echo "ARGUMENTS:"
 	echo "	cmd:"
@@ -18,9 +18,11 @@ usage () {
 	echo "		Specify the loop time in minute"
 	echo
 	echo "EXAMPLES:"
-	echo "	./run display		: (loop every 15 minutes)"
-	echo "	./run display 60		: (loop every 1 hour)"
-	echo "	./run background 1440	: (loop every day without render in console)"
+	echo "	./bridge display		: (loop every 15 minutes)"
+	echo "	./bridge display 60		: (loop every 1 hour)"
+	echo "	./bridge background 1440	: (loop every day without render in console)"
+	echo "	./bridge stop			: (Stop the program)"
+	echo "	./bridge restart		: (Restart the program)"
 	echo
 	echo "AUTHOR:"
 	echo "	Written by Bruno Sautron."
@@ -56,11 +58,11 @@ displayit () {
 	isrunning
 	if [ "$?" == 1 ]
 	then
-		sudo node ./test.js $1
+		sudo node ./start.js $1
 	else
 		echo "[$pid]: A program was already running"
 		stopit
-		sudo node ./test.js $1
+		sudo node ./start.js $1
 	fi
 }
 
@@ -69,7 +71,7 @@ backgroundit () {
 	isrunning
 	if [ "$?" == 1 ]
 	then
-		sudo node ./test.js $1 2> trace.log 1>/dev/null &
+		sudo node ./start.js $1 2> trace.log 1>/dev/null &
 		sudo echo $! > ".flowerIsRunning"
 		echo "To see your log:"
 		echo "$> sudo ./updatedb"
@@ -107,7 +109,7 @@ then
 else
 	if [ "$1" == "display" ]
 	then
-		displayit $2 
+		displayit $2
 	elif [ "$1" == "background" ]
 	then
 		backgroundit $2
