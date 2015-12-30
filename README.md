@@ -1,7 +1,9 @@
 # node-flower-bridge
 
 [![NPM](https://nodei.co/npm/node-flower-bridge.png)](https://nodei.co/npm/node-flower-bridge/)    
-[![Version node](https://img.shields.io/badge/node-4.x-green.svg?mini=true)](https://nodejs.org/en/)
+[![Version node](https://img.shields.io/badge/node-4.x-brightgreen.svg)](https://nodejs.org/en/)
+[![Issues](https://img.shields.io/badge/issues-open-orange.svg)](https://github.com/Parrot-Developers/node-flower-bridge/issues)
+[![Forum](https://img.shields.io/badge/question-forum-blue.svg)](http://forum.developer.parrot.com/c/flower-power)
 
 [Tower Bridge - London](https://en.wikipedia.org/wiki/Tower_Bridge)
 
