@@ -1,8 +1,9 @@
 # node-flower-bridge
 
-[Tower Bridge - London](https://en.wikipedia.org/wiki/Tower_Bridge)
+[![NPM](https://nodei.co/npm/node-flower-bridge.png)](https://nodei.co/npm/node-flower-bridge/)    
+[![Version node](https://img.shields.io/badge/node-4.x-green.svg?mini=true)](https://nodejs.org/en/)
 
-`Node` >= 4.x
+[Tower Bridge - London](https://en.wikipedia.org/wiki/Tower_Bridge)
 
 ## Get your access API
 * `username` `password`
@@ -116,6 +117,7 @@ The bridge is a continual queud. Method like `syncAll` `synchronize` or `live` p
 'login' = {access_token, expires_in, refresh_token}
 'info' = {message, date}
 'error' = {message, date}
+'newState' = state
 'newProcess' = {uuid, lastProcess, process, date}
 ```
 
