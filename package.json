@@ -10,12 +10,12 @@
   "author": "Bruno Sautron",
   "license": "ISC",
   "dependencies": {
-    "async": "*",
-    "chance": "*",
-    "cli-color": "*",
+    "async": "^1.5.1",
+    "chance": "^0.8.0",
+    "cli-color": "^1.1.0",
     "deasync": "^0.1.4",
-    "flower-power-api": "^1.1.0",
-    "flower-power-ble": "^0.3.1",
+    "flower-power-api": "^1.4.0",
+    "flower-power-ble": "^0.4.3",
     "nedb": "^1.2.1"
   },
   "repository": {
