@@ -139,6 +139,7 @@ var options = {
 
 brigde.automatic([options]); // Synchronize all flower power in your garden every 15 minutes by default
 bridge.syncAll([options]); // Synchronize all flower power in your garden
-bridge.synchronize(uuid); // Synchronize a flower power
-bridge.live(uuid [, delay]); // Live for a flower power every 10 seconds by default
+bridge.synchronize(UUID); // Synchronize a flower power
+bridge.live(UUID [, delay]); // Live for a flower power every 10 seconds by default
+bridge.update(UUID, file); // Update the firmware [features: no file param = last firmware]
 ```

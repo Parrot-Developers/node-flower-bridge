@@ -13,7 +13,7 @@ var options = {
 credentials['auto-refresh'] = true;
 brooklyn.loginToApi(credentials, function(err) {
 	if (err) {
-		console.error(err);
+		console.error(err.toString());
 		process.exit(1);
 	}
 });
