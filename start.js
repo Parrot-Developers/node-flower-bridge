@@ -1,16 +1,20 @@
-var brooklyn = require('./index');
+var Bridge = require('./index');
 var credentials = require('./credentials');
-var clc = require('cli-color')
+var clc = require('cli-color');
+
+var brooklyn = new Bridge(credentials.url);
+delete credentials.url;
 
 var valid = clc.green.bold('✔');
 var bad = clc.red.bold('✘');
 
 var options = {
 	delay: 15,
-	priority: [],
+	type: [],
+	priority: ['Parrot pot a0ad'],
 };
 
-credentials['auto-refresh'] = true;
+credentials['auto-refresh'] = false;
 brooklyn.loginToApi(credentials, function(err) {
 	if (err) {
 		console.error(err.toString());
@@ -24,7 +28,7 @@ brooklyn.on('login', function() {
 });
 
 brooklyn.on('newProcess', function(flowerPower) {
-	console.log(flowerPower.uuid + ": " + flowerPower.lastProcess);
+	console.log(flowerPower.name + ": " + flowerPower.lastProcess);
 });
 
 brooklyn.on('info', function(info) {
