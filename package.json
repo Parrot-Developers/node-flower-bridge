@@ -1,6 +1,6 @@
 {
   "name": "node-flower-bridge",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Flower Bridge",
   "main": "lib/FlowerPower.js",
   "scripts": {
@@ -14,8 +14,6 @@
     "chance": "^0.8.0",
     "cli-color": "^1.1.0",
     "deasync": "^0.1.4",
-    "flower-power-api": "^1.4.0",
-    "flower-power-ble": "^0.4.3",
     "nedb": "^1.2.1"
   },
   "repository": {
