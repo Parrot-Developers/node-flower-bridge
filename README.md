@@ -1,11 +1,11 @@
-# node-flower-bridge
+![Bridge](https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Suspension_bridge_icon.svg/2000px-Suspension_bridge_icon.svg.png)
+![node-flower-bridge](http://img15.hostingpics.net/pics/880820nfb.png)
+![Work](http://img15.hostingpics.net/pics/57414831fb.png)
 
-[![NPM](https://nodei.co/npm/node-flower-bridge.png)](https://nodei.co/npm/node-flower-bridge/)    
+
 [![Version node](https://img.shields.io/badge/node-4.x-brightgreen.svg)](https://nodejs.org/en/)
 [![Issues](https://img.shields.io/badge/issues-open-orange.svg)](https://github.com/Parrot-Developers/node-flower-bridge/issues)
 [![Forum](https://img.shields.io/badge/question-forum-blue.svg)](http://forum.developer.parrot.com/c/flower-power)
-
-[Tower Bridge - London](https://en.wikipedia.org/wiki/Tower_Bridge)
 
 ## Get your access API
 * `username` `password`
