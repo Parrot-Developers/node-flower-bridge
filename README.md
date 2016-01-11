@@ -46,7 +46,7 @@ Now Nodejs and BLE libraries are installed.
 #### Ready to use it
 If you have cloned this project, install:
 ```bash
-$ npm install
+$ ./install
 ```
 Edit `credentials.json`:
 ```javascript
@@ -54,7 +54,8 @@ Edit `credentials.json`:
 	"client_id":		"...",
 	"client_secret":	"...",
 	"username":		 "...",
-	"password":		 "..."
+	"password":		 "...",
+	"url":				"..."
 }
 ```
 And walk on the brigde:
