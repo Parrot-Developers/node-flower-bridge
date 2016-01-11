@@ -7,8 +7,7 @@ var bad = clc.red.bold('✘');
 
 var options = {
 	delay: 15,
-	priority: [],
-	file: 'sergserg'
+	priority: []
 };
 
 credentials['auto-refresh'] = true;
@@ -21,7 +20,7 @@ brooklyn.loginToApi(credentials, function(err) {
 
 brooklyn.on('login', function() {
 	console.log(valid, clc.green('Login!'));
-	brooklyn.all('update', options);
+	brooklyn.automatic(options);
 });
 
 brooklyn.on('newProcess', function(flowerPower) {
