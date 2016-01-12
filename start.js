@@ -1,9 +1,10 @@
 var clc = require('cli-color');
 var Bridge = require('./index');
+var figures = require('figures');
 var credentials = require('./credentials');
 
-var valid = clc.green.bold('✔');
-var bad = clc.red.bold('✘');
+var valid = clc.green.bold(figures.tick);
+var bad = clc.red.bold(figures.cross);
 
 var brooklyn = new Bridge();
 
