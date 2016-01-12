@@ -71,7 +71,7 @@ backgroundit () {
 	isrunning
 	if [ "$?" == 1 ]
 	then
-		sudo node ./index.js $1 2> trace.log 1>/dev/null &
+		sudo node ./start.js $1 2> trace.log 1>/dev/null &
 		sudo echo $! > ".flowerIsRunning"
 		echo "To see your log:"
 		echo "$> sudo ./updatedb"
