@@ -24,7 +24,7 @@ brooklyn.on('login', function() {
 });
 
 brooklyn.on('newProcess', function(flowerPower) {
-	console.log(flowerPower.uuid + ": " + flowerPower.lastProcess);
+	console.log("[" + flowerPower.lastDate.toString().substr(4, 20) + "]:", flowerPower.uuid + ": " + flowerPower.lastProcess);
 });
 
 brooklyn.on('info', function(info) {
