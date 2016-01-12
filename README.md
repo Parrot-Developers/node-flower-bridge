@@ -53,17 +53,17 @@ Edit `credentials.json`:
 {
 	"client_id":		"...",
 	"client_secret":	"...",
-	"username":		 "...",
-	"password":		 "..."
+	"username":		 	"...",
+	"password":			"..."
 }
 ```
 And walk on the brigde:
 ```bash
-$ ./bridge display			: To have a output:
+$ ./bridge display			 : To have a output:
 $ ./bridge background		 : To run the program in background
-$ ./bridge restart			: To restart the program
-$ ./bridge stop			   : To stop the program
-$ ./bridge					: To have help
+$ ./bridge restart			 : To restart the program
+$ ./bridge stop			     : To stop the program
+$ ./bridge					 : To have help
 ```
 
 ##### How it works
@@ -96,7 +96,7 @@ var credentials = {
 
 bridge.loginToApi(credentials, function(err, res) {
 	if (err) return console.error(err);
-	bridge.syncAll();
+	bridge.all('synchronize');
 	bridge.live('...', 5);
 	bridge.synchronize('...');
 });
@@ -131,17 +131,18 @@ bridge.loginToApi(credentials [, callback]);   // event: 'login'
 // Get your garden configuration
 bridge.getUser(callback);
 
-// Make an automatic syncronization
+
 var options = {
-	delay: 15,      // loop delay
 	priority: [],   // add a 'uuid'
+	delay: 15,      // loop delay 'automatic/live' method
+	file: 'file.bin' // path of the binary file for 'update' method
 };
 
 brigde.automatic([options]); // Synchronize all flower power in your garden every 15 minutes by default
 
 bridge.synchronize(UUID); // Synchronize a flower power
 bridge.live(UUID [, delay]); // Live for a flower power every 10 seconds by default
-bridge.update(UUID, file); // Update the firmware [features: no file param = last firmware]
+bridge.update(UUID, file); // Update the firmware [feature: no file param = last firmware]
 
 // or
 
