@@ -1,16 +1,18 @@
-var brooklyn = require('./index');
+var clc = require('cli-color');
+var Bridge = require('./index');
 var credentials = require('./credentials');
-var clc = require('cli-color')
 
 var valid = clc.green.bold('✔');
 var bad = clc.red.bold('✘');
 
+var brooklyn = new Bridge();
+
 var options = {
 	delay: 15,
-	priority: []
+	priority: [],
 };
 
-credentials['auto-refresh'] = true;
+credentials['auto-refresh'] = false;
 brooklyn.loginToApi(credentials, function(err) {
 	if (err) {
 		console.error(err.toString());
@@ -28,9 +30,13 @@ brooklyn.on('newProcess', function(flowerPower) {
 });
 
 brooklyn.on('info', function(info) {
-	console.log('INFO:', info.message);
+	console.log(clc.yellow("[" + info.date.toString().substr(4, 20) + "]:", info.message));
+});
+
+brooklyn.on('newState', function(state) {
+	console.log(clc.xterm(0)("[" + new Date().toString().substr(4, 20) + "]:", state));
 });
 
 brooklyn.on('error', function(error) {
-	console.log('ERROR:', error.message);
+	console.log(clc.red("[" + error.date.toString().substr(4, 20) + "]:", error.message));
 });
