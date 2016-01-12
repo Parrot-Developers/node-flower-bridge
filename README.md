@@ -112,7 +112,7 @@ bridge.on('error', function(error) {
 });
 ```
 
-The bridge is a continual queud. Method like `syncAll` `synchronize` or `live` push back to this queud.
+The bridge is a continual queud. Method like `.all` `.synchronize` or `.live` push back to this queud.
 
 ##### Events
 ```js
@@ -120,7 +120,7 @@ The bridge is a continual queud. Method like `syncAll` `synchronize` or `live` p
 'info' = {message, date}
 'error' = {message, date}
 'newState' = state
-'newProcess' = {uuid, lastProcess, process, date}
+'newProcess' = {uuid, lastProcess, process, lastDate}
 ```
 
 ##### Api
