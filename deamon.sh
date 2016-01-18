@@ -6,7 +6,10 @@ then
 		echo "ip: $ip" && \
 		echo "" && \
 		echo "trace.log:" && \
-		cat trace.log) | \
+		cat trace.log &&
+		echo &&
+		echo "credenitals.json:" &&
+		cat credentials.json) | \
 		mail -s "Flower Bridge crashed" "bruno.sautron@parrot.com"
 	./bridge restart > /dev/null
 fi
