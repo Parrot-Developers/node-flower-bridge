@@ -1,6 +1,6 @@
 {
   "name": "node-flower-bridge",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "Flower Bridge",
   "main": "lib/FlowerPower.js",
   "scripts": {
