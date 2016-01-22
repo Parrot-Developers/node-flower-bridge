@@ -123,30 +123,102 @@ The bridge is a continual queud. Method like `.all` `.synchronize` or `.live` pu
 'newProcess' = {uuid, lastProcess, process, lastDate}
 ```
 
-##### Api
-```js
-// Login in to the Cloud
-bridge.loginToApi(credentials [, callback]);   // event: 'login'
+## Api
+**Kind**: global class
 
-// Get your garden configuration
-bridge.getUser(callback);
+* [FlowerBridge](#FlowerBridge)
+    * [new FlowerBridge()](#new_FlowerBridge_new)
+    * [.loginToApi(credentials)](#FlowerBridge+loginToApi)
+    * [.getUser(callback)](#FlowerBridge+getUser)
+    * [.automatic(options)](#FlowerBridge+automatic)
+    * [.update(uuid, options)](#FlowerBridge+update)
+    * [.synchronize(uuid)](#FlowerBridge+synchronize)
+    * [.live(uuid, options)](#FlowerBridge+live)
+    * [.all(action, options)](#FlowerBridge+all)
 
+<a name="new_FlowerBridge_new"></a>
+### new FlowerBridge()
+FlowerBridge - Module to build a bridge form BLE/sensors and CLOUD/Parrot
 
-var options = {
-	priority: [],   // add a 'uuid'
-	delay: 15,      // loop delay 'automatic/live' method
-	file: 'file.bin' // path of the binary file for 'update' method
-};
+<a name="FlowerBridge+loginToApi"></a>
+### flowerBridge.loginToApi(credentials)
+To connect your bridge to the Parrot cloud
 
-brigde.automatic([options]); // Synchronize all flower power in your garden every 15 minutes by default
+**Kind**: instance method of <code>[FlowerBridge](#FlowerBridge)</code>
 
-bridge.synchronize(UUID); // Synchronize a flower power
-bridge.live(UUID [, delay]); // Live for a flower power every 10 seconds by default
-bridge.update(UUID, file); // Update the firmware [feature: no file param = last firmware]
+| Param | Type | Description |
+| --- | --- | --- |
+| credentials | <code>object</code> | `client_id` `client_secret` `username` `password` |
 
-// or
+<a name="FlowerBridge+getUser"></a>
+### flowerBridge.getUser(callback)
+Get your current profil from the cloud
+Get all sensor
+Get user version
 
-bridge.all('synchronize', options);
-bridge.all('live', options);
-bridge.all('update', options);
-```
+**Kind**: instance method of <code>[FlowerBridge](#FlowerBridge)</code>
+
+| Param | Type | Description |
+| --- | --- | --- |
+| callback | <code>function</code> | The callback **after** getting information form cloud |
+
+<a name="FlowerBridge+automatic"></a>
+### flowerBridge.automatic(options)
+Synchronize periodicly all of your flower powers
+
+**Kind**: instance method of <code>[FlowerBridge](#FlowerBridge)</code>
+**Default**: <code>options[delay] = 15; // minutes</code>
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>object</code> | `delay` `priority` |
+
+<a name="FlowerBridge+update"></a>
+### flowerBridge.update(uuid, options)
+[Update mode]
+- Synchronize historic samples
+- Update the frimware
+
+**Kind**: instance method of <code>[FlowerBridge](#FlowerBridge)</code>
+
+| Param | Type | Description |
+| --- | --- | --- |
+| uuid | <code>string</code> | The Uuid of the flower power |
+| options | <code>object</code> | `options[file]` -> Binary file to update the flower power |
+
+<a name="FlowerBridge+synchronize"></a>
+### flowerBridge.synchronize(uuid)
+[Synchronize mode]
+- Synchronize historic samples
+
+**Kind**: instance method of <code>[FlowerBridge](#FlowerBridge)</code>
+
+| Param | Type | Description |
+| --- | --- | --- |
+| uuid | <code>string</code> | The Uuid of the flower power |
+
+<a name="FlowerBridge+live"></a>
+### flowerBridge.live(uuid, options)
+[Live mode]
+- Show every second each data of a sensor
+
+**Kind**: instance method of <code>[FlowerBridge](#FlowerBridge)</code>
+**Default**: <code>options[delay] = 5</code>
+
+| Param | Type | Description |
+| --- | --- | --- |
+| uuid | <code>string</code> | The Uuid of the flower power |
+| options | <code>json</code> | `options[delay]` -> Delay of the live mode |
+
+<a name="FlowerBridge+all"></a>
+### flowerBridge.all(action, options)
+Apply then `action` for **all** flower powers of your garden.
+* `options[delay]` -> Do an action every `delay` minutes.
+* `options[priority]` -> `array` of uuid: Do this action for these flower power **befor** the normal process.
+
+**Kind**: instance method of <code>[FlowerBridge](#FlowerBridge)</code>
+
+| Param | Type | Description |
+| --- | --- | --- |
+| action | <code>string</code> | The name of the function to apply. |
+| options | <code>object</code> | Options to deal with all sensors. |
