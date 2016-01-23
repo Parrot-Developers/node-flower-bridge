@@ -222,3 +222,5 @@ Apply then `action` for **all** flower powers of your garden.
 | --- | --- | --- |
 | action | <code>string</code> | The name of the function to apply. |
 | options | <code>object</code> | Options to deal with all sensors. |
+
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
