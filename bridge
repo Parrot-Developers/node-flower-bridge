@@ -1,6 +1,8 @@
 #!/bin/bash
 
 pid=0
+filestart="./start.js"
+filetest="./test.js"
 
 usage () {
 	echo "Flower Bridge: See Flowers fall on the bridge"
@@ -53,16 +55,26 @@ isrunning () {
 	fi
 }
 
+statusit () {
+	isrunning
+	if [ "$?" == 0 ]
+	then
+		echo "[$pid] A program is running"
+	else
+		echo "No program is running"
+	fi
+}
+
 displayit () {
 	welcome
 	isrunning
 	if [ "$?" == 1 ]
 	then
-		sudo node ./start.js $1
+		sudo node $1 $2
 	else
 		echo "[$pid]: A program was already running"
 		stopit
-		sudo node ./start.js $1
+		sudo node $1 $2
 	fi
 }
 
@@ -71,7 +83,7 @@ backgroundit () {
 	isrunning
 	if [ "$?" == 1 ]
 	then
-		sudo node ./start.js $1 2> trace.log 1>/dev/null &
+		sudo node $1 $2 2> trace.log 1> /dev/null &
 		sudo echo $! > ".flowerIsRunning"
 		echo "To see your log:"
 		echo "$> sudo ./updatedb"
@@ -109,19 +121,25 @@ then
 else
 	if [ "$1" == "display" ]
 	then
-		displayit $2
+		displayit $filestart $2
 	elif [ "$1" == "background" ]
 	then
-		backgroundit $2
+		backgroundit $filestart $2
 	elif [ "$1" == "stop" ]
 	then
-		stopit $2
+		stopit
 	elif [ $1 == "restart" ]
 	then
 		restartit
 	elif [ $1 == "running" ]
 	then
 		isrunning
+	elif [ $1 == "status" ]
+	then
+		statusit
+	elif [ $1 == "test" ]
+	then
+		displayit $filetest $2
 	else
 		usage
 	fi

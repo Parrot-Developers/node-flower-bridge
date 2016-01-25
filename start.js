@@ -9,7 +9,7 @@ var bad = clc.red.bold(figures.cross);
 var brooklyn = new Bridge();
 
 var options = {
-	delay: 15,
+	delay: process.argv[2] || 15,
 	priority: [],
 };
 
