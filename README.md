@@ -62,6 +62,7 @@ And walk on the brigde:
 $ ./bridge display			 : To have a output:
 $ ./bridge background		 : To run the program in background
 $ ./bridge restart			 : To restart the program
+$ ./bridge status			 : To show the status
 $ ./bridge stop			     : To stop the program
 $ ./bridge					 : To have help
 ```
