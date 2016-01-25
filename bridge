@@ -87,6 +87,10 @@ backgroundit () {
 		sudo echo $! > ".flowerIsRunning"
 		echo "To see your log:"
 		echo "$> sudo ./updatedb"
+		crontab -u $USER -l > mycron
+		echo "* * * * * cd $PWD && bash deamon.sh" >> mycron
+		crontab mycron
+		rm mycron
 	else
 		echo "[$pid]: A program is already running"
 	fi
@@ -99,6 +103,10 @@ stopit () {
 		echo "No program is running"
 	else
 		killit
+		crontab -u $USER -l > mycron.tmp
+		sed '$ d' mycron.tmp > mycron
+		crontab mycron
+		rm mycron*
 		echo "Bye :)"
 	fi
 }
@@ -134,6 +142,12 @@ else
 	elif [ $1 == "running" ]
 	then
 		isrunning
+	elif [ $1 == "crontab" ]
+		then
+		echo $USER:
+		crontab -l
+		echo root:
+		sudo crontab -l
 	elif [ $1 == "status" ]
 	then
 		statusit
