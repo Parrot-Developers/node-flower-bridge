@@ -15,7 +15,8 @@
     "chance": "^0.8.0",
     "cli-color": "^1.1.0",
     "deasync": "^0.1.4",
-    "nedb": "^1.2.1"
+    "nedb": "^1.2.1",
+    "promise": "^7.1.1"
   },
   "repository": {
     "type": "git",
