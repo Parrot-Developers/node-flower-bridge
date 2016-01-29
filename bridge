@@ -13,7 +13,9 @@ usage () {
 	echo "ARGUMENTS:"
 	echo "	cmd:"
 	echo "		display:	Lannch and show updating into your console"
-	echo "		background:	Launch updatind to background. To know what happening: \`$ sudo ./updatedb\`"
+	echo "		background:	Launch updatind to background. To know what happening: \`$ ./updatedb\`"
+	echo "		restart:	Stop the current program and re-launch. If no program is running, 'restart' is similar as 'background'"
+	echo "		status:		Show if the program is running or not"
 	echo "		stop: 		Stop all processings and kill the program"
 	echo
 	echo "	delay (optional):"
@@ -37,7 +39,7 @@ welcome () {
 }
 
 pidexist () {
-	sudo kill -0 $1 2> /dev/null
+	kill -0 $1 2> /dev/null
 }
 
 isrunning () {
@@ -70,11 +72,11 @@ displayit () {
 	isrunning
 	if [ "$?" == 1 ]
 	then
-		sudo node $1 $2
+		node $1 $2
 	else
 		echo "[$pid]: A program was already running"
 		stopit
-		sudo node $1 $2
+		node $1 $2
 	fi
 }
 
@@ -83,10 +85,10 @@ backgroundit () {
 	isrunning
 	if [ "$?" == 1 ]
 	then
-		sudo node $1 $2 2> trace.log 1> /dev/null &
-		sudo echo $! > ".flowerIsRunning"
+		node $1 $2 2> trace.log 1> /dev/null &
+		echo $! > ".flowerIsRunning"
 		echo "To see your log:"
-		echo "$> sudo ./updatedb"
+		echo "$> ./updatedb"
 		crontab -u $USER -l > mycron
 		echo "* * * * * cd $PWD && bash deamon.sh" >> mycron
 		crontab mycron
@@ -113,11 +115,11 @@ stopit () {
 
 restartit () {
 	stopit
-	backgroundit $1
+	backgroundit $1 $2
 }
 
 killit () {
-	sudo kill $pid
+	kill $pid
 	rm -f ".flowerIsRunning"
 	echo "kill" $pid
 	pid=0
@@ -138,7 +140,7 @@ else
 		stopit
 	elif [ $1 == "restart" ]
 	then
-		restartit
+		restartit $filestart $2
 	elif [ $1 == "running" ]
 	then
 		isrunning
@@ -147,7 +149,7 @@ else
 		echo $USER:
 		crontab -l
 		echo root:
-		sudo crontab -l
+		crontab -l
 	elif [ $1 == "status" ]
 	then
 		statusit

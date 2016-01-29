@@ -1,2 +1,9 @@
 credentials.json
-
+.flowerIsRunning
+.*.sw*
+database/
+node_modules/
+node-flower-power-cloud/
+node-flower-power/
+test.js
+trace.log
