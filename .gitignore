@@ -1,3 +1,5 @@
+.flowerIsRunning
+.*.sw*
 database/
 node_modules/
 test.js
