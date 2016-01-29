@@ -46,7 +46,7 @@ Now Nodejs and BLE libraries are installed.
 #### Ready to use it
 If you have cloned this project, install:
 ```bash
-$ ./install
+$ ./install.sh
 ```
 Edit `credentials.json`:
 ```javascript
@@ -55,7 +55,7 @@ Edit `credentials.json`:
 	"client_secret":	"...",
 	"username":		 "...",
 	"password":		 "...",
-	"url":				"..."
+	"url":				"..." // Url of API cloud
 }
 ```
 And walk on the brigde:
@@ -63,6 +63,7 @@ And walk on the brigde:
 $ ./bridge display			: To have a output:
 $ ./bridge background		 : To run the program in background
 $ ./bridge restart			: To restart the program
+$ ./bridge status			: To show if the program is running or not
 $ ./bridge stop			   : To stop the program
 $ ./bridge					: To have help
 ```
@@ -103,7 +104,7 @@ bridge.loginToApi(credentials, function(err, res) {
 });
 
 bridge.on('newProcess', function(flowerPower) {
-	console.log(flowerPower.uuid, flowerPower.lastProcess);
+	console.log(flowerPower.name, flowerPower.lastProcess);
 });
 bridge.on('info', function(info) {
 	console.log(info.message);
@@ -121,7 +122,7 @@ The bridge is a continual queud. Method like `syncAll` `synchronize` or `live` p
 'info' = {message, date}
 'error' = {message, date}
 'newState' = state
-'newProcess' = {uuid, lastProcess, process, date}
+'newProcess' = {name, lastProcess, process, date}
 ```
 
 ##### Api
@@ -135,12 +136,12 @@ bridge.getUser(callback);
 // Make an automatic syncronization
 var options = {
 	delay: 15,      // loop delay
-	priority: [],   // add a 'uuid'
+	priority: [],   // add a 'name'
 };
 
 brigde.automatic([options]); // Synchronize all flower power in your garden every 15 minutes by default
 bridge.syncAll([options]); // Synchronize all flower power in your garden
-bridge.synchronize(UUID); // Synchronize a flower power
-bridge.live(UUID [, delay]); // Live for a flower power every 10 seconds by default
-bridge.update(UUID, file); // Update the firmware [features: no file param = last firmware]
+bridge.synchronize(NAME); // Synchronize a flower power
+bridge.live(NAME [, delay]); // Live for a flower power every 10 seconds by default
+bridge.update(NAME, file); // Update the firmware [features: no file param = last firmware]
 ```
