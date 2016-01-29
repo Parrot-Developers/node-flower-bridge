@@ -11,9 +11,6 @@ var messColor = {
 }
 
 function usage() {
-	console.log();
-	console.log("-- Warning: Make sure you have a sudo permission --");
-	console.log();
 	console.log("All states of your Flower Powers are push in a local Database");
 	console.log("You can request this Database to know the last process/update/errors ...");
 	console.log("Each requests are sorted by date");
@@ -38,9 +35,9 @@ function usage() {
 	console.log("\tlimit (optional): Show N last process. By default, limit=10");
 	console.log();
 	console.log('EXAMPLES:');
-	console.log("\tsudo ./updatedb all\t\t\t: 10 last process");
-	console.log("\tsudo ./updatedb uuid=\"9003b7e7aa64\"\t: last process of this Flower power");
-	console.log("\tsudo ./updatedb uuid=\"9003b7e7aa64\" proc=\"Updated\" 5\t: Show 5 last update for this Flower Power");
+	console.log("\t./updatedb all\t\t\t: 10 last process");
+	console.log("\t./updatedb uuid=\"9003b7e7aa64\"\t: last process of this Flower power");
+	console.log("\t./updatedb uuid=\"9003b7e7aa64\" proc=\"Updated\" 5\t: Show 5 last update for this Flower Power");
 	console.log();
 	console.log("AUTHOR:");
 	console.log("\tWritten by Bruno Sautron.");

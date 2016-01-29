@@ -14,6 +14,8 @@ usage () {
 	echo "	cmd:"
 	echo "		display:	Lannch and show updating into your console"
 	echo "		background:	Launch updatind to background. To know what happening: \`$ ./updatedb\`"
+	echo "		restart:	Stop the current program and re-launch. If no program is running, 'restart' is similar as 'background'"
+	echo "		status:		Show if the program is running or not"
 	echo "		stop: 		Stop all processings and kill the program"
 	echo
 	echo "	delay (optional):"
@@ -105,7 +107,7 @@ stopit () {
 
 restartit () {
 	stopit
-	backgroundit $1
+	backgroundit $1 $2
 }
 
 killit () {
@@ -130,7 +132,7 @@ else
 		stopit
 	elif [ $1 == "restart" ]
 	then
-		restartit
+		restartit $filestart $2
 	elif [ $1 == "running" ]
 	then
 		isrunning
