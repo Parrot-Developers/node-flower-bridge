@@ -23,7 +23,7 @@ function usage() {
 	console.log("\tall: Show last process");
 	console.log();
 	console.log("\tkey:");
-	console.log("\t\tuuid: For the uuid of device");
+	console.log("\t\name: For the name of device");
 	console.log("\t\tproc: For the proc message");
 	console.log("\t\tdate: For the date of process");
 	console.log();
@@ -36,8 +36,8 @@ function usage() {
 	console.log();
 	console.log('EXAMPLES:');
 	console.log("\t./updatedb all\t\t\t: 10 last process");
-	console.log("\t./updatedb uuid=\"9003b7e7aa64\"\t: last process of this Flower power");
-	console.log("\t./updatedb uuid=\"9003b7e7aa64\" proc=\"Updated\" 5\t: Show 5 last update for this Flower Power");
+	console.log("\t./updatedb name=\"9003b7e7aa64\"\t: last process of this Flower power");
+	console.log("\t./updatedb name=\"9003b7e7aa64\" proc=\"Updated\" 5\t: Show 5 last update for this Flower Power");
 	console.log();
 	console.log("AUTHOR:");
 	console.log("\tWritten by Bruno Sautron.");
