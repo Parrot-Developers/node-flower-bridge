@@ -1,13 +1,16 @@
 {
   "name": "node-flower-bridge",
-  "version": "1.8.6",
+  "version": "2.0.0",
   "description": "Flower Bridge",
   "main": "lib/FlowerPower.js",
   "scripts": {
     "test": "echo 'test' && exit 0",
     "start": "./bridge display"
   },
-  "author": "Bruno Sautron",
+	"bin": {
+		"flower-bridge": "bin/flower-bridge.js"
+	},
+	"author": "Bruno Sautron",
   "license": "ISC",
   "dependencies": {
     "async": "^1.5.1",
