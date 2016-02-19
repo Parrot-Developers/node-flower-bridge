@@ -9,12 +9,11 @@ var valid = clc.green.bold('✔');
 var bad = clc.red.bold('✘');
 
 var options = {
-	delay: 15,
 	type: [],
 	priority: [],
 };
 
-credentials['auto-refresh'] = true;
+credentials['auto-refresh'] = false;
 brooklyn.loginToApi(credentials, function(err) {
 	if (err) {
 		console.error(err.toString());
@@ -24,7 +23,7 @@ brooklyn.loginToApi(credentials, function(err) {
 
 brooklyn.on('login', function() {
 	console.log(valid, clc.green('Login!'));
-	brooklyn.automatic(options);
+	brooklyn.all('synchronize', options);
 });
 
 brooklyn.on('newProcess', function(flowerPower) {
@@ -41,4 +40,8 @@ brooklyn.on('newState', function(state) {
 
 brooklyn.on('error', function(error) {
 	console.log(clc.red("[" + error.date.toString().substr(4, 20) + "]:", error.message));
+});
+
+brooklyn.on('end', function() {
+	process.exit(0);
 });

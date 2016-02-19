@@ -1,8 +1,8 @@
 #!/bin/bash
 
 pid=0
-filestart="./start.js"
-filetest="./test.js"
+filestart="/home/pi/node-flower-bridge/start.js"
+filetest="/home/pi/node-flower-bridge/test.js"
 
 usage () {
 	echo "Flower Bridge: See Flowers fall on the bridge"
@@ -51,7 +51,15 @@ isrunning () {
 		pidexist $pid
 		if [ "$?" == 0 ]
 		then
+			echo "[running] A program is running - $pid"
 			return 0
+		else
+			crontab -l | grep -n "node-flower-bridge/bridge background &> /dev/null$" > /dev/null
+			if [ $? == 0 ]
+			then
+				echo "[waiting] A program is on waiting, it will restart it self "
+				return 0
+			fi
 		fi
 		return 1
 	fi
@@ -59,10 +67,8 @@ isrunning () {
 
 statusit () {
 	isrunning
-	if [ "$?" == 0 ]
+	if [ "$?" == 1 ]
 	then
-		echo "[$pid] A program is running"
-	else
 		echo "No program is running"
 	fi
 }
@@ -72,9 +78,9 @@ displayit () {
 	isrunning
 	if [ "$?" == 1 ]
 	then
+		echo node $1 $2
 		node $1 $2
 	else
-		echo "[$pid]: A program was already running"
 		stopit
 		node $1 $2
 	fi
@@ -87,14 +93,9 @@ backgroundit () {
 	then
 		node $1 $2 2> trace.log 1> /dev/null &
 		echo $! > ".flowerIsRunning"
-		echo "To see your log:"
-		echo "$> ./updatedb"
-		crontab -u $USER -l > mycron
-		echo "* * * * * cd $PWD && bash deamon.sh" >> mycron
-		crontab mycron
-		rm mycron
-	else
-		echo "[$pid]: A program is already running"
+		echo "Starting bridge in background"
+		echo "$> ./bridge status"
+		installit
 	fi
 }
 
@@ -105,10 +106,7 @@ stopit () {
 		echo "No program is running"
 	else
 		killit
-		crontab -u $USER -l > mycron.tmp
-		sed '$ d' mycron.tmp > mycron
-		crontab mycron
-		rm mycron*
+		crontab -l | sed "/node-flower-bridge\/bridge background &> \/dev\/null$/d" | crontab
 		echo "Bye :)"
 	fi
 }
@@ -125,11 +123,21 @@ killit () {
 	pid=0
 }
 
+installit () {
+	crontab -u $USER -l > mycron
+	echo "*/15 * * * * $PWD/bridge background &> /dev/null" >> mycron
+	crontab mycron
+	rm mycron
+}
+
 if [ -z "$1" ]
 then
 	usage
 else
-	if [ "$1" == "display" ]
+	if [ "$1" == "install" ]
+	then
+		installit
+	elif [ "$1" == "display" ]
 	then
 		displayit $filestart $2
 	elif [ "$1" == "background" ]
@@ -145,11 +153,11 @@ else
 	then
 		isrunning
 	elif [ $1 == "crontab" ]
-		then
+	then
 		echo $USER:
 		crontab -l
 		echo root:
-		crontab -l
+		sudo crontab -l
 	elif [ $1 == "status" ]
 	then
 		statusit
