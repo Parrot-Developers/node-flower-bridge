@@ -1,8 +1,8 @@
 #!/bin/bash
 
 pid=0
-filestart="$HOME/node-flower-bridge/start.js"
-filetest="$HOME/node-flower-bridge/test.js"
+filestart="/home/pi/node-flower-bridge/start.js"
+filetest="/home/pi/node-flower-bridge/test.js"
 
 usage () {
 	echo "Flower Bridge: See Flowers fall on the bridge"
@@ -48,7 +48,7 @@ pidexist () {
 # 1 -> stoping
 # 2 -> waiting
 isrunning () {
-	pid=$(head -n 1 "$HOME/node-flower-bridge/.flowerIsRunning" 2> /dev/null)
+	pid=$(head -n 1 "/home/pi/node-flower-bridge/.flowerIsRunning" 2> /dev/null)
 	if [ -z "$pid" ]
 	then
 		echo "[---] No program is running"
@@ -60,7 +60,7 @@ isrunning () {
 			echo "[running] A program is running - $pid"
 			return 0
 		else
-			crontab -l | grep -n "node-flower-bridge\/bridge background$" > /dev/null
+			crontab -u pi -l | grep -n "node-flower-bridge\/bridge background$" > /dev/null
 			if [ $? == 0 ]
 			then
 				echo "[waiting] A program is on waiting, it will restart it self "
@@ -98,16 +98,16 @@ backgroundit () {
 	status="$?"
 	if [ "$status" == 1 ]
 	then
-		node $1 $2 2> $HOME/node-flower-bridge/trace.log 1> /dev/null &
-		echo $! > "$HOME/node-flower-bridge/.flowerIsRunning"
+		node $1 $2 2> /home/pi/node-flower-bridge/trace.log 1> /dev/null &
+		echo $! > "/home/pi/node-flower-bridge/.flowerIsRunning"
 		echo "Starting bridge in background"
 		echo "node $1 $2 2> trace.log 1> /dev/null &"
 		echo "$> ./bridge status"
 		installit
 	elif [ "$status" == 2 ]
 	then
-		node $1 $2 2> $HOME/node-flower-bridge/trace.log 1> /dev/null &
-		echo $! > "$HOME/node-flower-bridge/.flowerIsRunning"
+		node $1 $2 2> /home/pi/node-flower-bridge/trace.log 1> /dev/null &
+		echo $! > "/home/pi/node-flower-bridge/.flowerIsRunning"
 		echo "The bridge wakup"
 	fi
 }
@@ -118,11 +118,11 @@ stopit () {
 	if [ "$status" == 0 ]
 	then
 		killit
-		crontab -l | sed "/node-flower-bridge\/bridge background$/d" | crontab
+		crontab -u pi -l | sed "/node-flower-bridge\/bridge background$/d" | crontab
 		echo "Bye :)"
 	elif [ "$status" == 2 ]
 	then
-		crontab -l | sed "/node-flower-bridge\/bridge background$/d" | crontab
+		crontab -u pi -l | sed "/node-flower-bridge\/bridge background$/d" | crontab
 	fi
 }
 
@@ -133,7 +133,7 @@ restartit () {
 
 killit () {
 	kill $pid
-	rm -f "$HOME/node-flower-bridge/.flowerIsRunning"
+	rm -f "/home/pi/node-flower-bridge/.flowerIsRunning"
 	echo "kill" $pid
 	pid=0
 }
@@ -142,10 +142,10 @@ installit () {
 	crontab -l | grep -n "node-flower-bridge\/bridge background$" > /dev/null
 	if [ "$?" == 1 ]
 	then
-		crontab -u $USER -l > mycron
-		echo "*/15 * * * * $HOME/node-flower-bridge/bridge background" >> mycron
-		crontab mycron
-		rm mycron
+		crontab -u pi -l > /home/pi/node-flower-bridge/mycron
+		echo "*/15 * * * * /home/pi/node-flower-bridge/bridge background" >> /home/pi/node-flower-bridge/mycron
+		crontab -u pi /home/pi/node-flower-bridge/mycron
+		rm /home/pi/node-flower-bridge/mycron
 	fi
 }
 
@@ -173,8 +173,8 @@ else
 		isrunning
 	elif [ $1 == "crontab" ]
 	then
-		echo $USER:
-		crontab -l
+		echo pi:
+		crontab -u pi -l
 		echo root:
 		sudo crontab -l
 	elif [ $1 == "status" ]
