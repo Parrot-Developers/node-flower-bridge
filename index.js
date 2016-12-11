@@ -1,3 +1,3 @@
-var Bridge = require('./lib/FlowerBridge');
+const Bridge = require('./lib/FlowerBridge');
 
 module.exports = Bridge;

@@ -87,8 +87,8 @@ If you have this module in dependencies:
 $ npm install node-flower-bridge
 ```
 ```javascript
-var bridge = require('node-flower-bridge');
-var credentials = {
+const bridge = require('node-flower-bridge');
+const credentials = {
 	"client_id": "...",
 	"client_secret": "...",
 	"username": "...",

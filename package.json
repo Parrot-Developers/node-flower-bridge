@@ -13,8 +13,9 @@
     "async": "^1.5.1",
     "cli-color": "^1.1.0",
     "figures": "^1.4.0",
-    "flower-power-api": "^1.4.0",
+    "flower-power-api": "^2.0.0",
     "flower-power-ble": "^0.5.0",
+    "lodash": "^4.17.2",
     "nedb": "^1.2.1"
   },
   "repository": {

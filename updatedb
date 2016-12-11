@@ -1,9 +1,9 @@
 #!/usr/bin/node
-var Datastore = require('nedb');
-var clc = require('cli-color');
-var db = new Datastore({filename: './database/process.db', autoload: true});
+const Datastore = require('nedb');
+const clc = require('cli-color');
+const db = new Datastore({filename: './database/process.db', autoload: true});
 
-var messColor = {
+const messColor = {
 	'No update required': clc.yellow('No update required'),
 	'Updated': clc.green.bold('Updated'),
 	'Not found': clc.red.bold('Not found'),
@@ -28,7 +28,7 @@ function usage() {
 	console.log("\t\tdate: For the date of process");
 	console.log();
 	console.log("\tvalue:");
-	for (var mess in messColor) {
+	for (const mess in messColor) {
 		console.log("\t\t" + mess);
 	}
 	console.log();
@@ -48,8 +48,8 @@ function printReq(find, limit) {
 	console.log( ' - REQUEST for (limit: ' + limit + '):' );
 
 	if (find instanceof Array) {
-		for (var i in find) {
-			var key = Object.keys(find[i])[0];
+		for (const i in find) {
+			const key = Object.keys(find[i])[0];
 			console.log("\t" + key + ": " + find[i][key]);
 		}
 	}
@@ -61,10 +61,10 @@ function printReq(find, limit) {
 
 function findDb(find, max) {
 	printReq(find, max);
-	var toFind = (find) ? {$and: find} : {};
+	const toFind = (find) ? {$and: find} : {};
 
 	db.find(toFind).sort({date: -1}).limit(max).exec(function(err, docs) {
-			for (var i in docs) {
+			for (const i in docs) {
 			console.log("[" + docs[i].date + "]:", clc.xterm(docs[i].color)(docs[i].name + ":"), (messColor[docs[i].proc]) ? messColor[docs[i].proc] : docs[i].proc);
 			}
 			});
@@ -72,8 +72,8 @@ function findDb(find, max) {
 
 
 /* main */
-var argv = process.argv;
-var max = 10;
+const argv = process.argv;
+const max = 10;
 
 if (!isNaN(argv[argv.length - 1])) {
 	max = argv[argv.length - 1];
@@ -86,11 +86,11 @@ argv.shift();
 
 if (argv[0].toLowerCase() == 'all') findDb(null, max);
 else {
-	var toFind = [];
+	const toFind = [];
 
-	for (var i in argv) {
-		var key = argv[i].split("=")[0];
-		var json = {};
+	for (const i in argv) {
+		const key = argv[i].split("=")[0];
+		const json = {};
 
 		json[key] = argv[i].split("=")[1];
 		toFind.push(json);
