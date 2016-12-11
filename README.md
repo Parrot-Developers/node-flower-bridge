@@ -103,7 +103,7 @@ bridge.loginToApi(credentials, function(err, res) {
 });
 
 bridge.on('newProcess', function(flowerPower) {
-	console.log(flowerPower.uuid, flowerPower.lastProcess);
+	console.log(flowerPower.identifier, flowerPower.lastProcess);
 });
 bridge.on('info', function(info) {
 	console.log(info.message);
@@ -121,7 +121,7 @@ The bridge is a continual queud. Method like `.all` `.synchronize` or `.live` pu
 'info' = {message, date}
 'error' = {message, date}
 'newState' = state
-'newProcess' = {uuid, lastProcess, process, lastDate}
+'newProcess' = {identifier, lastProcess, process, lastDate}
 ```
 
 ## Api
@@ -132,9 +132,9 @@ The bridge is a continual queud. Method like `.all` `.synchronize` or `.live` pu
     * [.loginToApi(credentials)](#FlowerBridge+loginToApi)
     * [.getUser(callback)](#FlowerBridge+getUser)
     * [.automatic(options)](#FlowerBridge+automatic)
-    * [.update(uuid, options)](#FlowerBridge+update)
-    * [.synchronize(uuid)](#FlowerBridge+synchronize)
-    * [.live(uuid, options)](#FlowerBridge+live)
+    * [.update(identifier, options)](#FlowerBridge+update)
+    * [.synchronize(identifier)](#FlowerBridge+synchronize)
+    * [.live(identifier, options)](#FlowerBridge+live)
     * [.all(action, options)](#FlowerBridge+all)
 
 <a name="new_FlowerBridge_new"></a>
@@ -175,7 +175,7 @@ Synchronize periodicly all of your flower powers
 | options | <code>object</code> | `delay` `priority` |
 
 <a name="FlowerBridge+update"></a>
-### flowerBridge.update(uuid, options)
+### flowerBridge.update(identifier, options)
 [Update mode]
 - Synchronize historic samples
 - Update the frimware
@@ -184,11 +184,11 @@ Synchronize periodicly all of your flower powers
 
 | Param | Type | Description |
 | --- | --- | --- |
-| uuid | <code>string</code> | The Uuid of the flower power |
+| identifier | <code>string</code> | The Identifier of the flower power |
 | options | <code>object</code> | `options[file]` -> Binary file to update the flower power |
 
 <a name="FlowerBridge+synchronize"></a>
-### flowerBridge.synchronize(uuid)
+### flowerBridge.synchronize(identifier)
 [Synchronize mode]
 - Synchronize historic samples
 
@@ -196,10 +196,10 @@ Synchronize periodicly all of your flower powers
 
 | Param | Type | Description |
 | --- | --- | --- |
-| uuid | <code>string</code> | The Uuid of the flower power |
+| identifier | <code>string</code> | The Identifier of the flower power |
 
 <a name="FlowerBridge+live"></a>
-### flowerBridge.live(uuid, options)
+### flowerBridge.live(identifier, options)
 [Live mode]
 - Show every second each data of a sensor
 
@@ -208,14 +208,14 @@ Synchronize periodicly all of your flower powers
 
 | Param | Type | Description |
 | --- | --- | --- |
-| uuid | <code>string</code> | The Uuid of the flower power |
+| identifier | <code>string</code> | The Identifier of the flower power |
 | options | <code>json</code> | `options[delay]` -> Delay of the live mode |
 
 <a name="FlowerBridge+all"></a>
 ### flowerBridge.all(action, options)
 Apply then `action` for **all** flower powers of your garden.
 * `options[delay]` -> Do an action every `delay` minutes.
-* `options[priority]` -> `array` of uuid: Do this action for these flower power **befor** the normal process.
+* `options[priority]` -> `array` of identifier: Do this action for these flower power **befor** the normal process.
 
 **Kind**: instance method of <code>[FlowerBridge](#FlowerBridge)</code>
 

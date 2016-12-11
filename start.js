@@ -28,7 +28,7 @@ brooklyn.on('login', () => {
 });
 
 brooklyn.on('newProcess',
-	(flowerPower) => console.log("[" + flowerPower.lastDate.toString().substr(4, 20) + "]:", flowerPower.uuid + ": " + flowerPower.lastProcess));
+	(flowerPower) => console.log("[" + flowerPower.lastDate.toString().substr(4, 20) + "]:", flowerPower.identifier + ": " + flowerPower.lastProcess));
 
 brooklyn.on('info',
 	(info) => console.log(clc.yellow("[" + info.date.toString().substr(4, 20) + "]:", info.message)));
